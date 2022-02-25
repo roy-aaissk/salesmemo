@@ -1,4 +1,6 @@
 import firebase from '@nuxtjs/firebase'
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
 import Vuex from 'vuex'
 
 const namespaced = true
@@ -33,8 +35,9 @@ const mutations = {
 
 const actions = {
   login({ commit }) {
-    const provider = new firebase.auth.GoogleAuthProvider()
-    firebase.auth().signInWithPopup(provider).then((result) => {
+    const provider = new GoogleAuthProvider()
+    const auth = getAuth();
+    signInWithPopup(auth , provider).then((result) => {
       const user = result.user
       commit('loginStatusChange', true)
       console.log('Login was successful')
