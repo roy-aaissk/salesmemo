@@ -1,12 +1,12 @@
 <template>
-  <v-btn
+  <button
     color="secondary"
     @click="login"
     v-if="!$store.state.auth.loggedIn"
     outlined
   >
     Login
-  </v-btn>
+  </button>
 </template>>
 
 <script>

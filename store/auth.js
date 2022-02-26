@@ -1,6 +1,5 @@
-import firebase from '@nuxtjs/firebase'
+import { initializeApp } from "@/plugins/firebase.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-
 import Vuex from 'vuex'
 
 const namespaced = true
@@ -43,33 +42,33 @@ const actions = {
       console.log('Login was successful')
       commit('setUserUid', user.uid)
       commit('setUserName', user.displayName)
-      this.$router.push('/dashboard')
+      this.$router.push('/top')
     }).catch((error) => {
       const errorCode = error.code
       console.log('error : ' + errorCode)
     });
   },
   // ログイン中のユーザー取得
-  onAuth({ commit }) {
-    firebase.auth().onAuthStateChanged(user => {
-      user = user ? user : {}
-      commit('setUserUid', user.uid)
-      commit('setUserName', user.displayName)
-      commit('setUserImage', user.photoURL)
-      commit('setUserEmail', user.email)
-      commit('loginStatusChange', user.uid ? true : false)
-    })
-  },
-  logout({ commit }) {
-    firebase.auth().signOut().then(() => {
-      commit('loginStatusChange', false)
-      console.log('Logout was successful')
-      this.$router.push('/')
-    }).catch((error) => {
-      const errorCode = error.code
-      console.log('error :' + errorCode)
-    })
-  },
+  // onAuth({ commit }) {
+  //   firebase.auth().onAuthStateChanged(user => {
+  //     user = user ? user : {}
+  //     commit('setUserUid', user.uid)
+  //     commit('setUserName', user.displayName)
+  //     commit('setUserImage', user.photoURL)
+  //     commit('setUserEmail', user.email)
+  //     commit('loginStatusChange', user.uid ? true : false)
+  //   })
+  // },
+  // logout({ commit }) {
+  //   firebase.auth().signOut().then(() => {
+  //     commit('loginStatusChange', false)
+  //     console.log('Logout was successful')
+  //     this.$router.push('/')
+  //   }).catch((error) => {
+  //     const errorCode = error.code
+  //     console.log('error :' + errorCode)
+  //   })
+  // },
 }
 
 const getters = {
