@@ -25,6 +25,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: '@/plugins/firebase.js', mode: 'client' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -38,23 +39,6 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    [
-      '@nuxtjs/firebase',
-      {
-        config: {
-          apiKey: "AIzaSyAkfvjtVVtavrtATyZ-9BhEPJkwS_DCTjY",
-          authDomain: "salesmemo-fcf17.firebaseapp.com",
-          projectId: "salesmemo-fcf17",
-          storageBucket: "salesmemo-fcf17.appspot.com",
-          messagingSenderId: "701851257450",
-          appId: "1:701851257450:web:72e39d970e74f3e7d65813",
-          measurementId: "G-3DK4EB462K"
-        },
-        services: {
-          auth: true // Just as example. Can be any other service.
-        }
-      }
-    ]
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
