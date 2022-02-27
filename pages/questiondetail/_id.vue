@@ -1,0 +1,94 @@
+<template>
+<div>
+    <Header/>
+  <div class="bg-white shadow overflow-hidden sm:rounded-lg ">
+    <div class="flex flex-col text-center w-full mb-10 mt-10">
+      <h3 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">
+        質問詳細ページ
+      </h3>
+    </div>
+    <div class="border-t border-gray-200 container mx-auto items-center">
+      <dl>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" >
+          <dt class="text-sm font-medium text-gray-500">
+            質問項目名
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <!-- <input type="text" id="name" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/> -->
+              {{question.title}}
+          </dd>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+
+          </dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            回答
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <!-- <textarea id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea> -->
+            <!-- <label for="footer-field" class="leading-7 text-sm text-gray-600"></label> -->
+            {{question.context}}
+          </dd>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+
+          </dd>
+        </div>
+        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" >
+          <dt class="text-sm font-medium text-gray-500">
+            登録日
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <!-- <label for="footer-field" class="leading-7 text-sm text-gray-600"></label>
+             -->
+             {{question.createdate}}
+          </dd>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+    <div class="flex flex-col text-center w-full mb-10 mt-10">
+      <h4 class="sm:text-2xl text-3xl font-medium title-font mb-2 text-gray-900">
+        質問回答
+      </h4>
+    </div>
+      <div class="flex flex-col sm:text-left text-center mt-6 sm:mt-0 mr-10 ml-10">
+        <p class="leading-relaxed text-base w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">早く建てるメリットなどを説明してみると良いかも（補助金や税金の説明）また早く建てられない部分を確認する</p>
+      </div>
+      <div class="flex flex-col sm:text-left text-center mt-6 sm:mt-0 mr-10 ml-10">
+        <p class="leading-relaxed text-base w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">早く建てるメリットなどを説明してみると良いかも（補助金や税金の説明）また早く建てられない部分を確認する</p>
+      </div>
+    <div class="flex flex-col text-center w-full mb-10 mt-10">
+      <h4 class="sm:text-2xl text-3xl font-medium title-font mb-2 text-gray-900">
+        comment投稿
+      </h4>
+    </div>
+    <div class="flex">
+      <div class="flex-1 w-32 px-2 py-0 sm:px-6 sm:py-4  mr-10 ml-10">
+        <textarea id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+        <button class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+        Save
+      </button>
+      </div>
+    </div>
+</div>
+</template>
+
+<script>
+import Header from '../../components/header/Header.vue'
+export default {
+  layout: 'detail',
+  components: {
+    Header
+  },
+  computed: {
+    question(){ return  this.$store.state.question.questionsdetail}
+  },
+  created() {
+      return this.$store.dispatch('question/fetchQuestionDetail', String(this.$route.params.id))
+  },
+}
+</script>
