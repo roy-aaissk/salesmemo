@@ -6,7 +6,7 @@
         <div class="text-center lg:w-2/3 w-full">
           <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">salesMemo</h1>
           <p class="mb-8 leading-relaxed">ログインはこちらから</p>
-            <login-button />
+          <login-button/>
         </div>
       </div>
     </section>
@@ -17,7 +17,6 @@
 import LoginButton from '~/components/beforeLogin/loginButton.vue'
 export default {
   layout: 'welcome',
-  // middleware: 'beforeLogin',
   components: {
     LoginButton,
   },
