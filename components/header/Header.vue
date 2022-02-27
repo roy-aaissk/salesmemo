@@ -6,9 +6,20 @@
         salesMemo
       </Nuxt-link>
     </nav>
-    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-        <login-button/>
-      </nav>
+    <nav class="md:ml-auto flex flex-wrap items-right text-base">
+      <login-button/>
+    </nav>
     </div>
   </div>
 </template>
+
+<script>
+import LoginButton from '~/components/beforeLogin/loginButton.vue'
+
+export default {
+  layout: 'top',
+  components: {
+    LoginButton
+  },
+}
+</script>
