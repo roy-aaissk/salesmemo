@@ -1,4 +1,4 @@
-import { initializeApp } from "@/plugins/firebase.js";
+import { db } from "~/plugins/firebase.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import Vuex from 'vuex'
 
