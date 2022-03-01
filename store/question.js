@@ -38,6 +38,7 @@ const actions = {
           id: doc.id
         },question)
       )
+      // console.log(questionlist)
       commit('getquestion', questionlist)
     })
   },
@@ -79,6 +80,7 @@ const getters = {
   //   return state.answer;
   // }
 }
+
 
 export default {
   state,
