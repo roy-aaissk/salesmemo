@@ -38,6 +38,7 @@ const actions = {
           id: doc.id
         },question)
       )
+      // console.log(questionlist)
       commit('getquestion', questionlist)
     })
   },
