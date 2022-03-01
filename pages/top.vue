@@ -11,8 +11,9 @@
       </div>
     </div>
       <div class="flex flex-wrap -m-4">
-        <div class="p-4 md:w-1/3" v-for="(question,index) in getQuestion" :key=index>
+        <div class="p-4 md:w-1/3" v-for="(question,index) in $store.getters['question/getquestion']" :key=index>
           <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
+              <label for="footer-field" class="leading-7 text-sm text-indigo-600">質問したいこと</label>
             <div class="flex items-center mb-3">
               <h2 class="text-gray-900 text-lg title-font font-medium"  v-if="question.title">{{question.title}}</h2>
             </div>
@@ -53,8 +54,12 @@ export default {
       return  this.$store.state.question.questions
     }
   },
+  methods: {
+    ...mapActions('question',['fetchquestion']),
+  },
+
   created() {
-    return this.$store.dispatch('question/fetchquestion')
+    this.fetchquestion()
   }
 }
 </script>
