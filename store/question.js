@@ -12,6 +12,7 @@ const state = () => ({
 const mutations = {
   getquestion(state, question) {
     state.questions = question
+    // console.log(state.questions)
   },
   questiondetail(state, question) {
     state.questionsdetail = question
@@ -28,17 +29,23 @@ const mutations = {
 const actions = {
   async fetchquestion ({commit}) {
     const querySnapshot = await getDocs(collection(db, "question"));
+    let questionlist = [];
     querySnapshot.forEach((doc) => {
-      let questionlist = [];
       // console.log(`${doc.id} => ${doc.data()}`);
-      console.log(`${doc.id} => ${doc.data().context}`);
-      const question = doc.data()
+      // console.log(`${doc.id} => ${doc.data().context}`);
+      // const question = doc.data()
+      // console.log(doc.data())
+      // console.log(question)
       questionlist.push(
-        Object.assign({
-          id: doc.id
-        },question)
+        Object.assign(
+          {
+            id: doc.id,
+            title: doc.data().title,
+            context: doc.data().context
+          })
       )
-      // console.log(questionlist)
+
+      console.log(questionlist)
       commit('getquestion', questionlist)
     })
   },
@@ -53,23 +60,23 @@ const actions = {
       console.log("No such document!");
     }
   },
-  async addquestion({commit}, question) {
+  async addquestion({commit, dispatch}, question) {
     const colRef = collection(db, "question");
     const data = {
       title: question.title,
       context: question.context,
     };
-    const docRef = await addDoc(colRef, data).then((decRef) =>{
+    await addDoc(colRef, data).then((decRef) =>{
+      dispatch('fetchquestion')
       console.log(decRef);
       commit('addquestion',question);
     });
-    console.log(docRef);
   }
 }
 
 const getters = {
   getquestion(state){
-    console.log(state.questions);
+    // console.log(state.questions);
     return state.questions;
   },
   getquestiondetail(state){
