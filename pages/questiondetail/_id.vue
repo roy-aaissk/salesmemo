@@ -26,8 +26,8 @@
             回答
           </dt>
           <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-            <!-- <textarea id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea> -->
-            <!-- <label for="footer-field" class="leading-7 text-sm text-gray-600"></label> -->
+            <!-- <textarea id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+            <label for="footer-field" class="leading-7 text-sm text-gray-600"></label> -->
             {{question.context}}
           </dd>
           <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
@@ -43,13 +43,11 @@
              -->
              {{question.createdate}}
           </dd>
-          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-
-          </dd>
         </div>
       </dl>
     </div>
   </div>
+  <button class="flex mx-auto mt-2 text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg"  v-on:click="deletelist">削除</button>
     <div class="flex flex-col text-center w-full mb-10 mt-10">
       <h4 class="sm:text-2xl text-3xl font-medium title-font mb-2 text-gray-900">
         質問回答
@@ -86,6 +84,11 @@ export default {
   },
   computed: {
     question(){ return  this.$store.state.question.questionsdetail}
+  },
+  methods: {
+    deletelist(){
+      this.$store.dispatch('deletequestion',this.$route.params.id)
+    }
   },
   created() {
       return this.$store.dispatch('fetchQuestionDetail', String(this.$route.params.id))
