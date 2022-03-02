@@ -10,29 +10,24 @@
       </NuxtLink>
       </div>
     </div>
-
-    <div class="lg:w-2/3 w-full mx-auto overflow-auto" v-for="question in showlist" :key="question.id">
-      <table class="table-auto w-full text-left whitespace-no-wrap">
-        <thead>
-          <tr>
-            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">質問したいこと</th>
-            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">作成日</th>
-            <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100"></th>
-            
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="px-4 py-3">{{question.title}}</td>
-            <td class="px-4 py-3">2021/1/1</td>
-            <td class="px-4 py-3">
-              <NuxtLink class="inline-flex items-center text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" :to="{ path: `/questiondetail/${question.id}` } ">もっと見る
-              </NuxtLink>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <div class="flex flex-wrap -m-4">
+        <div class="p-4 md:w-1/3" v-for="question in showlist" :key=question.id>
+          <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
+            <div class="flex items-center mb-3">
+              <h2 class="text-gray-900 text-lg title-font font-medium"  v-if="question.title">{{question.title}}</h2>
+            </div>
+            <div class="flex-grow">
+              <div>
+                <NuxtLink class="mt-3 text-indigo-500 inline-flex items-center" :to="{ path: `/questiondetail/${question.id}` } ">もっと見る
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+                </NuxtLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </section>
 </div>
 </template>
@@ -50,14 +45,22 @@ export default {
     LoginButton,
     Header
   },
-  async asyncData({store}) {
-    return await store.dispatch('question/fetchquestion')
+  asyncData({store}) {
+    store.dispatch('fetchquestion')
   },
   computed: {
     showlist() {
       return this.getquestion
     },
-    ...mapGetters('question',['getquestion'])
+    ...mapGetters(['getquestion'])
   },
+  // methods:{
+  //   showlist(){
+  //     this.$store.dispatch('fetchquestion')
+  //   }
+  // },
+  // mounted: function() {
+  //   this.showlist()
+  // }
 }
 </script>

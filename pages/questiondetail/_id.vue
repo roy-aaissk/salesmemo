@@ -88,7 +88,7 @@ export default {
     question(){ return  this.$store.state.question.questionsdetail}
   },
   created() {
-      return this.$store.dispatch('question/fetchQuestionDetail', String(this.$route.params.id))
+      return this.$store.dispatch('fetchQuestionDetail', String(this.$route.params.id))
   },
 }
 </script>
