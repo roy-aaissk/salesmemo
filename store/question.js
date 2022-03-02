@@ -1,5 +1,5 @@
 import { db } from "~/plugins/firebase.js";
-import { collection, doc, setDoc, Timestamp, getDocs, getDoc, query, where, addDoc } from "firebase/firestore";
+import { collection, doc, setDoc, Timestamp, getDocs, getDoc, query, where, addDoc, deleteDoc } from "firebase/firestore";
 // import { prototype } from "core-js/core/dict";
 
 
@@ -71,6 +71,13 @@ const actions = {
       console.log(decRef);
       commit('addquestion',question);
     });
+  },
+  async deletequestion({dispatch}, id) {
+    await deleteDoc(doc(db, "question", id)).then(() => {
+      dispatch('fetchquestion')
+      this.$router.push('/top')
+  })
+
   }
 }
 
