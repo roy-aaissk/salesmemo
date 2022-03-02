@@ -74,7 +74,7 @@ export default {
     addlist() {
       const title = this.list.title;
       const context = this.list.context;
-      this.$store.dispatch('question/addquestion', {title, context});
+      this.$store.dispatch('addquestion', {title, context});
       this.$router.push('../top');
     },
     toTop() {
