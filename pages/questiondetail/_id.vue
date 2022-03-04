@@ -76,8 +76,8 @@
     </div>
     <div class="flex">
       <div class="flex-1 w-32 px-2 py-0 sm:px-6 sm:py-4  mr-10 ml-10">
-        <textarea id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
-        <button class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+        <textarea id="message" name="message" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" v-model="answer.context"></textarea>
+        <button class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" @click="addanswer()">
         Save
       </button>
       </div>
@@ -99,6 +99,10 @@ export default {
         title: '',
         context: '',
       },
+      answer: {
+        id: this.$route.params.id,
+        context: '',
+      },
       toggleEdit: true,
     }
   },
@@ -113,6 +117,9 @@ export default {
     updatelist(list){
       console.log(list.title)
       this.$store.dispatch('updatequestion', Object.assign({id: list.id, title: list.title, context: list.context}))
+    },
+    addanswer(){
+      console.log(this.answer.id);
     },
     edit: function() {
       this.toggleEdit =  !this.toggleEdit;

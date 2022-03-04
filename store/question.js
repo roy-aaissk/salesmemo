@@ -64,35 +64,19 @@ const actions = {
     }
   },
   async fetchQuestionDetailcomment({ commit }, id) {
-    console.log(id)
-    const qs = query(collectionGroup(db, 'answer'));
-    const querySnapshot = await getDocs(qs);
+    const snapShots = await getDocs(collection(db, 'question', id, 'answer'))
     const answerlist = [];
-    querySnapshot.forEach((doc) => {
-        // console.log(doc.id, ' => ', doc.data());
-        answerlist.push(
-          Object.assign(
-            {
-              id: doc.id,
-              context: doc.data().context
-            })
-        )
-        console.log(answerlist);
-      commit('getanswer', answerlist);
+    snapShots.forEach((doc) => {
+      // console.log(`${doc.id} => ${doc.data().context}`);
+      answerlist.push(
+        {
+          id: doc.id,
+          context: doc.data().context
+        }
+      )
     });
-
-    // const querySnapshot = await db.collectionGroup('answer').get();
-    // querySnapshot.forEach((doc) => {
-    //       console.log(`${doc.id} => ${doc.data()}`);
-    // })
-
-    // const snapShots = await getDocs(collection(db, 'users', id, 'answer'))
-    // snapShots.forEach((doc) => {
-    // })
-    // const docRef = getDocs(db, "question", id);
-    // const docSnap = await docRef.listCollections();
-    // docSnap.forEach((doc) => {
-    // })
+    // console.log(answerlist);
+    commit('getanswer', answerlist);
   },
   async addquestion({commit, dispatch}, question) {
     const colRef = collection(db, "question");
