@@ -24,6 +24,10 @@ const mutations = {
     state.questions.push(question)
     console.log(question);
   },
+  addanswer(state, answer) {
+    state.answer.push(answer)
+    console.log(answer);
+  },
   reset(state) {
     Object.assign(state, state())
   },
@@ -89,6 +93,19 @@ const actions = {
       console.log(decRef);
       commit('addquestion',question);
     });
+  },
+
+  async addanswer({commit, dispatch}, comment) {
+    console.log(comment.context);
+    const snapShots = collection(db, 'question', comment.id, 'answer')
+    const data = {
+      context: comment.context,
+    };
+    await addDoc(snapShots, data).then((docRef) => {
+      // console.log(docRef.context);
+      dispatch('fetchQuestionDetailcomment');
+      commit('add')
+    })
   },
   async deletequestion({dispatch}, id) {
     await deleteDoc(doc(db, "question", id)).then(() => {
