@@ -81,8 +81,5 @@ export default {
       this.$router.push('../top');
     }
   }
-  // created() {
-      // return this.$store.dispatch('question/fetchQuestionDetail', String(this.$route.params.id))
-  // },
 }
 </script>

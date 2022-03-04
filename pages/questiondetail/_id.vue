@@ -66,9 +66,6 @@
         質問回答
       </h4>
     </div>
-      <!-- <div class="flex flex-col sm:text-left text-center mt-6 sm:mt-0 mr-10 ml-10">
-        <p class="leading-relaxed text-base w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">早く建てるメリットなどを説明してみると良いかも（補助金や税金の説明）また早く建てられない部分を確認する</p>
-      </div> -->
       <div class="flex flex-col sm:text-left text-center mt-6 sm:mt-0 mr-10 ml-10" v-for="review in comment" :key="review.id">
         <p class="leading-relaxed text-base w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ review.context}}</p>
       </div>

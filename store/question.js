@@ -1,6 +1,5 @@
 import { db } from "~/plugins/firebase.js";
 import { collection, doc, setDoc, Timestamp, getDocs, getDoc, query, where, addDoc, deleteDoc, updateDoc, collectionGroup } from "firebase/firestore";
-// import { prototype } from "core-js/core/dict";
 
 
 const state = () => ({
