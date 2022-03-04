@@ -1,5 +1,5 @@
 import { db } from "~/plugins/firebase.js";
-import { collection, doc, setDoc, Timestamp, getDocs, getDoc, query, where, addDoc, deleteDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, setDoc, Timestamp, getDocs, getDoc, query, where, addDoc, deleteDoc, updateDoc, collectionGroup } from "firebase/firestore";
 // import { prototype } from "core-js/core/dict";
 
 
@@ -13,6 +13,10 @@ const mutations = {
   getquestion(state, question) {
     state.questions = question
     // console.log(state.questions)
+  },
+  getanswer(state, answer) {
+    state.answer = answer
+    // console.log(state.answer)
   },
   questiondetail(state, question) {
     state.questionsdetail = question
@@ -45,7 +49,7 @@ const actions = {
           })
       )
 
-      console.log(questionlist)
+      // console.log(questionlist)
       commit('getquestion', questionlist)
     })
   },
@@ -59,6 +63,37 @@ const actions = {
       // doc.data() will be undefined in this case
       console.log("No such document!");
     }
+  },
+  async fetchQuestionDetailcomment({ commit }, id) {
+    console.log(id)
+    const qs = query(collectionGroup(db, 'answer'));
+    const querySnapshot = await getDocs(qs);
+    const answerlist = [];
+    querySnapshot.forEach((doc) => {
+        // console.log(doc.id, ' => ', doc.data());
+        answerlist.push(
+          Object.assign(
+            {
+              id: doc.id,
+              context: doc.data().context
+            })
+        )
+        console.log(answerlist);
+      commit('getanswer', answerlist);
+    });
+
+    // const querySnapshot = await db.collectionGroup('answer').get();
+    // querySnapshot.forEach((doc) => {
+    //       console.log(`${doc.id} => ${doc.data()}`);
+    // })
+
+    // const snapShots = await getDocs(collection(db, 'users', id, 'answer'))
+    // snapShots.forEach((doc) => {
+    // })
+    // const docRef = getDocs(db, "question", id);
+    // const docSnap = await docRef.listCollections();
+    // docSnap.forEach((doc) => {
+    // })
   },
   async addquestion({commit, dispatch}, question) {
     const colRef = collection(db, "question");
