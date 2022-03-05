@@ -1,5 +1,5 @@
 import { db } from "~/plugins/firebase.js";
-import { collection, doc, setDoc, Timestamp, getDocs, getDoc, query, where, addDoc, deleteDoc, updateDoc, collectionGroup } from "firebase/firestore";
+import { collection, doc, setDoc, Timestamp, getDocs, getDoc, query, where, addDoc, deleteDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 
 
 const state = () => ({
@@ -48,7 +48,8 @@ const actions = {
           {
             id: doc.id,
             title: doc.data().title,
-            context: doc.data().context
+            context: doc.data().context,
+            create_date: doc.data().create_date
           })
       )
 
@@ -87,6 +88,7 @@ const actions = {
     const data = {
       title: question.title,
       context: question.context,
+      create_date: serverTimestamp()
     };
     await addDoc(colRef, data).then((decRef) =>{
       dispatch('fetchquestion')
@@ -94,7 +96,6 @@ const actions = {
       commit('addquestion',question);
     });
   },
-
   async addanswer({commit, dispatch}, comment) {
     console.log(comment.context);
     const snapShots = collection(db, 'question', comment.id, 'answer')

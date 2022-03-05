@@ -8,6 +8,7 @@
     </nav>
     <nav class="md:ml-auto flex flex-wrap items-right text-base">
       <login-button/>
+      <logout-button/>
     </nav>
     </div>
   </div>
@@ -15,11 +16,13 @@
 
 <script>
 import LoginButton from '~/components/beforeLogin/loginButton.vue'
+import LogoutButton from '~/components/afterLogin/logoutButton.vue'
 
 export default {
   layout: 'top',
   components: {
-    LoginButton
+    LoginButton,
+    LogoutButton
   },
 }
 </script>
