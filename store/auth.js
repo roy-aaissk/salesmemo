@@ -1,5 +1,5 @@
 import { db } from "~/plugins/firebase.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signout } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import Vuex from 'vuex'
 
 const namespaced = true
