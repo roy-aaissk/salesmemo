@@ -1,13 +1,11 @@
 import { db } from "~/plugins/firebase.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 import Vuex from 'vuex'
 
 const namespaced = true
 
 const state = () => ({
   userUid: '',
-  userName: '',
-  userImage: '',
   userEmail: '',
   loggedIn: false,
 })
@@ -49,16 +47,17 @@ const actions = {
     });
   },
   // ログイン中のユーザー取得
-  // onAuth({ commit }) {
-  //   firebase.auth().onAuthStateChanged(user => {
-  //     user = user ? user : {}
-  //     commit('setUserUid', user.uid)
-  //     commit('setUserName', user.displayName)
-  //     commit('setUserImage', user.photoURL)
-  //     commit('setUserEmail', user.email)
-  //     commit('loginStatusChange', user.uid ? true : false)
-  //   })
-  // },
+  onAuth({ commit }) {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user.uid);
+        commit('setUserUid', user.uid);
+        commit('setUserEmail', user.email);
+      } else {
+      }
+    });
+  },
   logout({ commit }) {
     const auth = getAuth();
     signOut(auth).then(() => {
