@@ -3,10 +3,10 @@
   <Header/>
       <section class="text-gray-600 body-font">
     <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center" >
-      <div class="flex flex-col text-center w-full mb-20">
+      <div class="flex flex-col text-center w-full mb-10">
         <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">住宅Q&A</h2>
         <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900">質問事項一覧</h1>
-      <NuxtLink class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" :to="{ path: `/create` }">Create
+      <NuxtLink class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded" :to="{ path: `/create` }">新規作成
       </NuxtLink>
       </div>
     </div>
@@ -34,6 +34,7 @@
 
 <script>
 import LoginButton from '~/components/beforeLogin/loginButton.vue'
+import LogoutButton from '~/components/afterLogin/logoutButton.vue'
 import Header from '~/components/header/Header.vue'
 import { mapActions, mapGetters } from "vuex";
 
@@ -43,6 +44,7 @@ export default {
   layout: 'top',
   components: {
     LoginButton,
+    LogoutButton,
     Header
   },
   asyncData({store}) {

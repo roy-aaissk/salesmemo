@@ -1,16 +1,13 @@
 <template>
-  <div class='text-center'>
-    <v-btn
-      color="warning"
-      @click="logout"
-      v-if="$store.state.auth.loggedIn"
-      block
-      width="100px"
-    >
-      Logout
-    </v-btn>
-  </div>
-</template>
+  <button
+    color="secondary"
+    @click="logout"
+    v-if="$store.state.auth.loggedIn"
+    outlined
+  >
+    Login
+  </button>
+</template>>
 
 <script>
 export default {
@@ -19,7 +16,7 @@ export default {
       console.log('Logout attempt')
       const result = window.confirm('Do you want to logout?')
       if (result) {
-        this.$store.dispatch('auth/logout')
+        this.$store.dispatch('logout')
       } else {
         console.log('Logout was canceled')
       }

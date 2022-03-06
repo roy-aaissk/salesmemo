@@ -1,5 +1,5 @@
 import { db } from "~/plugins/firebase.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import Vuex from 'vuex'
 
 const namespaced = true
@@ -59,16 +59,17 @@ const actions = {
   //     commit('loginStatusChange', user.uid ? true : false)
   //   })
   // },
-  // logout({ commit }) {
-  //   firebase.auth().signOut().then(() => {
-  //     commit('loginStatusChange', false)
-  //     console.log('Logout was successful')
-  //     this.$router.push('/')
-  //   }).catch((error) => {
-  //     const errorCode = error.code
-  //     console.log('error :' + errorCode)
-  //   })
-  // },
+  logout({ commit }) {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      commit('loginStatusChange', false)
+      console.log('Logout was successful')
+      this.$router.push('/')
+    }).catch((error) => {
+      const errorCode = error.code
+      console.log('error :' + errorCode)
+    })
+  },
 }
 
 const getters = {

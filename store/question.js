@@ -1,6 +1,5 @@
 import { db } from "~/plugins/firebase.js";
-import { collection, doc, setDoc, Timestamp, getDocs, getDoc, query, where, addDoc, deleteDoc, updateDoc, collectionGroup } from "firebase/firestore";
-// import { prototype } from "core-js/core/dict";
+import { collection, doc, setDoc, Timestamp, getDocs, getDoc, query, where, addDoc, deleteDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 
 
 const state = () => ({
@@ -25,6 +24,10 @@ const mutations = {
     state.questions.push(question)
     console.log(question);
   },
+  addanswer(state, answer) {
+    state.answer.push(answer)
+    console.log(answer);
+  },
   reset(state) {
     Object.assign(state, state())
   },
@@ -45,7 +48,8 @@ const actions = {
           {
             id: doc.id,
             title: doc.data().title,
-            context: doc.data().context
+            context: doc.data().context,
+            create_date: doc.data().create_date
           })
       )
 
@@ -65,47 +69,44 @@ const actions = {
     }
   },
   async fetchQuestionDetailcomment({ commit }, id) {
-    console.log(id)
-    const qs = query(collectionGroup(db, 'answer'));
-    const querySnapshot = await getDocs(qs);
+    const snapShots = await getDocs(collection(db, 'question', id, 'answer'))
     const answerlist = [];
-    querySnapshot.forEach((doc) => {
-        // console.log(doc.id, ' => ', doc.data());
-        answerlist.push(
-          Object.assign(
-            {
-              id: doc.id,
-              context: doc.data().context
-            })
-        )
-        console.log(answerlist);
-      commit('getanswer', answerlist);
+    snapShots.forEach((doc) => {
+      // console.log(`${doc.id} => ${doc.data().context}`);
+      answerlist.push(
+        {
+          id: doc.id,
+          context: doc.data().context
+        }
+      )
     });
-
-    // const querySnapshot = await db.collectionGroup('answer').get();
-    // querySnapshot.forEach((doc) => {
-    //       console.log(`${doc.id} => ${doc.data()}`);
-    // })
-
-    // const snapShots = await getDocs(collection(db, 'users', id, 'answer'))
-    // snapShots.forEach((doc) => {
-    // })
-    // const docRef = getDocs(db, "question", id);
-    // const docSnap = await docRef.listCollections();
-    // docSnap.forEach((doc) => {
-    // })
+    // console.log(answerlist);
+    commit('getanswer', answerlist);
   },
   async addquestion({commit, dispatch}, question) {
     const colRef = collection(db, "question");
     const data = {
       title: question.title,
       context: question.context,
+      create_date: serverTimestamp()
     };
     await addDoc(colRef, data).then((decRef) =>{
       dispatch('fetchquestion')
       console.log(decRef);
       commit('addquestion',question);
     });
+  },
+  async addanswer({commit, dispatch}, comment) {
+    console.log(comment.context);
+    const snapShots = collection(db, 'question', comment.id, 'answer')
+    const data = {
+      context: comment.context,
+    };
+    await addDoc(snapShots, data).then((docRef) => {
+      // console.log(docRef.context);
+      dispatch('fetchQuestionDetailcomment');
+      commit('add')
+    })
   },
   async deletequestion({dispatch}, id) {
     await deleteDoc(doc(db, "question", id)).then(() => {

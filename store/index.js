@@ -16,12 +16,12 @@ export default () => new Vuex.Store({
   },
   plugins: [createPersistedState(
     {
-      key: 'yourkey',  // 設定しなければ'vuex'
+      key: 'yourkey',
       paths: [
         'auth.loggedIn',
         // 'question.questions',
-      ],  // 保存するモジュール：設定しなければ全部。
-      storage: window.sessionStorage,  // 設定しなければlocalStorage
+      ],
+      storage: window.sessionStorage,
     }
   )],
 })
