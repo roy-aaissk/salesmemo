@@ -1,7 +1,7 @@
 <template>
 <div>
     <Header/>
-  <div class="bg-white shadow overflow-hidden sm:rounded-lg ">
+  <div class="overflow-hidden sm:rounded-lg ">
     <div class="flex flex-col text-center w-full mb-10 mt-10">
       <h3 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">
         新規登録
@@ -31,11 +31,11 @@
   </div>
   <div class="md:ml-auto flex flex-wrap items-center text-base justify-center" id="create">
     <template>
-      <button class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" @click="addlist()">
-        Save
-      </button>
-      <button class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" @click="toTop()">
+      <button class="flex mx-auto mt-10 text-white bg-indigo-500 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" @click="toTop()">
         Cancel
+      </button>
+      <button class="flex mx-auto mt-10 text-white bg-indigo-500 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" @click="addlist()">
+        Save
       </button>
     </template>
   </div>

@@ -30,7 +30,9 @@
         </div>
         <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">
-            回答
+            質問詳細
+            <br/>
+            <span class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">どんなとこに困っているのか</span>
           </dt>
           <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
             <div v-if="!toggleEdit">
@@ -43,16 +45,6 @@
 
           </dd>
         </div>
-        <!-- <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6" >
-          <dt class="text-sm font-medium text-gray-500">
-            登録日
-          </dt> -->
-          <!-- <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"> -->
-            <!-- <label for="footer-field" class="leading-7 text-sm text-gray-600"></label>
-             -->
-             <!-- {{question.create_date.toDate()}} -->
-          <!-- </dd> -->
-        <!-- </div> -->
       </dl>
     </div>
   </div>
@@ -68,16 +60,16 @@
   </div>
     <div class="flex flex-col text-center w-full mb-10 mt-10">
       <h4 class="sm:text-2xl text-3xl font-medium title-font mb-2 text-gray-900">
-        質問回答
+        メンバーからのアドバイス
       </h4>
     </div>
-      <div class="flex lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col  text-lg" v-for="review in comment" :key="review.id">
-        <p>{{ review.context}}</p>
+      <div class="flex lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col  text-base" v-for="review in comment" :key="review.id">
+        <p class="mx-10">{{ review.context}}</p>
       </div>
-    <div class="flex flex-col text-center w-full mb-10 mt-10">
-      <h4 class="sm:text-2xl text-3xl font-medium title-font mb-2 text-gray-900">
-        comment投稿
-      </h4>
+    <div class="flex flex-col text-center w-full mb-3 mt-10">
+      <p class="sm:text-xl text-2xl font-small title-font mb-2 text-gray-900">
+        コメント投稿
+      </p>
     </div>
     <div class="flex">
       <div class="lex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
@@ -116,7 +108,12 @@ export default {
   },
   methods: {
     deletelist(){
-      this.$store.dispatch('deletequestion',this.$route.params.id)
+      const result = window.confirm('本当に削除してもいいですか？')
+      if (result) {
+        this.$store.dispatch('deletequestion',this.$route.params.id)
+      } else {
+        console.log('delete was canceled')
+      }
     },
     updatelist(list){
       console.log(list.title)
@@ -128,7 +125,7 @@ export default {
       const context = this.answer.context;
       console.log(id);
       this.$store.dispatch('addanswer',{context, id})
-      this.$router.push('../top');
+      this.$router.push('./_id');
 
     },
     edit: function() {
