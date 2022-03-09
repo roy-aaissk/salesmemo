@@ -7,6 +7,7 @@
           <span class="mb-8 leading-relaxed">ログインはこちらから</span>
         </div>
           <login-button/>
+          <button class="items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-4" @click="guestsLogin()">ゲストログイン</button>
       </div>
     </section>
   </div>
@@ -18,6 +19,22 @@ export default {
   layout: 'welcome',
   components: {
     LoginButton,
+  },
+  methods: {
+    guestsLogin() {
+      this.$store.dispatch("auth/guestsLogin")
+      // this.$auth
+      //   .signInAnonymously()
+      //   .then(() => {
+      //     alert("ログイン成功しました！");
+      //     this.$store.dispatch("confirmLogin");
+      //     this.$router.push("/top");
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //     alert("ログインに失敗しました");
+      //   });
+    },   
   },
 }
 </script>
