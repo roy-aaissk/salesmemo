@@ -1,5 +1,5 @@
 import { db } from "~/plugins/firebase.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import Vuex from 'vuex'
 
 const namespaced = true
@@ -45,6 +45,20 @@ const actions = {
       const errorCode = error.code
       console.log('error : ' + errorCode)
     });
+  },
+  guestsLogin() {
+    const auth = getAuth();
+  signInAnonymously(auth)
+  .then(() => {
+    alert("ログイン成功しました！");
+    this.$router.push("/top");
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(error.code)
+  });
+
   },
   // ログイン中のユーザー取得
   onAuth({ commit }) {
